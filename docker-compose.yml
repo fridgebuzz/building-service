@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  building-service:
+    # Pull customer specific container with correct mappings
+    image: thoughtwire/building-service:latest
+    ports:
+      - 9375:9375
+    restart: unless-stopped
+
+    volumes:
+      - /data/building-service/keystore.p12:/opt/tw-data/config/keystore.p12
+
+    environment:
+      # Environment variables used in the application properties file
+      # Possible required variables
+      - BLDGMS_CONSUL_HOST=${OS_BLDGMS_CONSUL_HOST}
+      - BLDGMS_KEYSTORE_PASSWORD=${OS_BLDGMS_KEYSTORE_PASSWORD}
+
+    logging:
+       driver: journald

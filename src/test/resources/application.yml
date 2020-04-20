@@ -1,0 +1,45 @@
+# This configuration file defines Spring Boot and Building-Service default settings
+#
+# Whenever the integration with Consul KV is enabled,
+# Building-Service default settings are overridden by the values provided by Consul KV.
+#
+# Spring boot will only override default application settings that are existent
+# in both forms (building-service.yml and Consul KV). In this way, if a particular setting
+# is not existent in Consul KV, Spring boot will use the default one.
+#
+ 
+### Spring Cloud Consul Config level default properties (non-overrideable by Consul KV)
+
+spring:
+  profiles: test
+  application:
+    name: building-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    driverClassName: org.postgresql.Driver
+
+### Spring Boot level default properties (non-overrideable by Consul KV)
+
+server:
+  port: 9375
+  servlet:
+    context-path: /building-service
+
+management:
+  endpoint:
+    configprops:
+      keys-to-sanitize:
+      - managerPwd
+      - password
+      - secret
+      - key
+      - token
+      - .*credentials.*
+      - vcap_services
+      - sun.java.command
+  endpoints:
+    web:
+      exposure:
+        include: '*'

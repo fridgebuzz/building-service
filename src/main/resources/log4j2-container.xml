@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60" name="building-service" status="ERROR">
+
+    <Properties>
+        <Property name="defaultLevel">WARN</Property>
+        <Property name="twLevel">INFO</Property>
+        <Property name="appName">bldgms</Property>
+    </Properties>
+
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout alwaysWriteExceptions="false" pattern="%d{MMM dd HH:mm:ss}{GMT+0} ${appName}-3rd %-5p %d{yyyy-MM-dd HH:mm:ss.SSS}{GMT+0} %c{1.} %replace{%m}{[\t\n\r]}{ } %replace{%ex{full,separator(;)}}{[\t\n\r]}{ }%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <AsyncLogger name="building-service" level="${twLevel}" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </AsyncLogger>
+        <AsyncLogger name="ca.thoughtwire" level="${twLevel}" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.springframework" level="${twLevel}" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </AsyncLogger>
+        <AsyncRoot level="${defaultLevel}">
+            <AppenderRef ref="STDOUT"/>
+        </AsyncRoot>
+    </Loggers>
+
+</Configuration>
